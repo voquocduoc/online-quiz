@@ -1,0 +1,13 @@
+<{foreach from=$g_vars.page.tablefields key=i_fieldno item=i_field}>
+<td class=rowhdr1 vAlign=top title="<{$i_field.1}>">
+	<{if $i_field.2}>
+	<a class=rowhdr href="<{$g_vars.page.url}>&order'.$i_orderid.'='.$i_fieldno.'&direction'.$i_orderid.'='.(($i_order_no==$i_fieldno && !$i_direction) ? "DESC" : "").'">'.$i_field[0].'</a><br>
+	<nobr>
+	<{if $i_order_no==$i_fieldno && !$i_direction}><img src="images/button-order-asc.gif" width=10 height=8>
+	<{else}><a href="<{$g_vars.page.url}>&order'.$i_orderid.'='.$i_fieldno.'&direction'.$i_orderid.'="><img src="images/button-order-asc-inactive.gif" width=10 height=8 border=0></a><{/if}>
+	<{if $i_order_no==$i_fieldno && $i_direction}><img src="images/button-order-desc.gif" width=10 height=8>
+	<{else}><a href="<{$g_vars.page.url}>&order'.$i_orderid.'='.$i_fieldno.'&direction'.$i_orderid.'=DESC"><img src="images/button-order-desc-inactive.gif" width=10 height=8 border=0></a><{/if}>
+	</nobr>
+	<{/if}>
+</td>
+<{/foreach}>

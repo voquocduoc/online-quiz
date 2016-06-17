@@ -1,0 +1,5 @@
+<?php
+ 
+gotoLocation('index.php'); 
+  
+?>

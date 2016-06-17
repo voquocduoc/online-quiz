@@ -1,0 +1,8 @@
+﻿Vao Format~~>Font~~>Arial~~>OK de doc duoc tieng viet.
+------------------------------------------------------------------------------------------------------------------------
+Demo : http://demo.sinhvienit.net/php/tracnghiem/
+
+1.Bạn Upload toàn bộ code lên host
+2.Sau đó chạy đường dẫn http://webban.xyz/dường dẫn trang trắc nghiệp/install
+3.Làm từng bước theo hướng dẫn đến khi thành công
+4.Sau khi cài xong thì nhớ xoá hoặc đổi tên thư mục install

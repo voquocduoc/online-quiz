@@ -1,0 +1,99 @@
+<{* Smarty *}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="<{$lngstr.text_direction}>"><head><title><{$g_vars.page.title}><{$lngstr.item_separator}><{$srv_settings.title_postfix}></title>
+<meta http-equiv="Content-Language" content="<{$lngstr.meta_contentlanguage}>">
+<meta content="text/html; charset=<{$lngstr.meta_charset}>" http-equiv=Content-Type>
+<link rel="SHORTCUT ICON" href="/favicon.ico">
+<link href="shared/style.css" rel=stylesheet type=text/css>
+<script language=javascript src="shared/shared.js" type="text/javascript"></script>
+<{$g_vars.page.meta}></head>
+<body bgcolor="#ffffff"<{$g_vars.page.body_tag}>>
+
+<p><table cellpadding=0 cellspacing=0 border=0 width="100%"><tr><td>
+<table cellpadding=5 cellspacing=0 border=1 width="100%">
+<tr vAlign=top>
+<{foreach from=$g_vars.page.tables.1.columns_to_show key=column_name item=column_show}>
+<td><b><{$lngstr.page_reportsmanager.fields.name.$column_name}></b></td>
+<{/foreach}>
+</tr>
+
+<{foreach from=$g_vars.page.tables.1.rows key=i_counter item=row}>
+
+<tr>
+
+<{if $g_vars.page.tables.1.columns_to_show.resultid}>
+<td><{$g_vars.page.tables.1.rows.$i_counter.resultid}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_datestart}>
+<td><{$g_vars.page.tables.1.rows.$i_counter.result_datestart}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_datestart_formatted}>
+<td><{$g_vars.page.tables.1.rows.$i_counter.result_datestart_formatted}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.userid}>
+<td><{$g_vars.page.tables.1.rows.$i_counter.userid}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.user_name}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_name}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.user_firstname}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_firstname}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.user_middlename}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_middlename}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.user_lastname}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_lastname}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.testid}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.testid}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.test_name}>
+<td><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.test_name}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.test_attempts}>
+<{if $g_vars.page.tables.1.rows.$i_counter.test_attempts}>
+<td align=center><{if $g_vars.page.tables.1.rows.$i_counter.test_attempts <= $g_vars.page.tables.1.rows.$i_counter.test_attempt_count}><{$lngstr.label_yes}><{else}><{$lngstr.label_no}><{/if}></td>
+<{else}>
+<td align=center><{$lngstr.label_no}></td>
+<{/if}>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_timeexceeded}>
+<td align=center><{if $g_vars.page.tables.1.rows.$i_counter.result_timeexceeded}><{$lngstr.label_yes}><{else}><{$lngstr.label_no}><{/if}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_points}>
+<td align=right><{$g_vars.page.tables.1.rows.$i_counter.result_points}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_pointsmax}>
+<td align=right><{$g_vars.page.tables.1.rows.$i_counter.result_pointsmax}></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.result_score}>
+<td align=right><{getPrintF text=$g_vars.page.tables.1.rows.$i_counter.result_score var1="%.0f"}>%</td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.columns_to_show.grade_name}>
+<td align=center title="<{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.grade_description}>"><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.grade_name}></td>
+<{/if}>
+
+</tr>
+
+<{/foreach}>
+
+</table>
+</td></tr></table></p>
+
+</body></html>

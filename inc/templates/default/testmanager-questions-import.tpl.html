@@ -1,0 +1,35 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{include file="_menu-2.tpl.html"}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<{include file="_notifications.tpl.html"}>
+
+<p><form method=post action="test-manager.php?testid=<{$g_vars.page.testid}>&action=import">
+<table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+
+<tr class=rowtwo><td><{$lngstr.page_testmanager_import.document_label}></td></tr>
+<tr class=rowone><td>
+<textarea name=import_document cols=70 rows=15 title="<{getInTagValue text=$lngstr.page_importtest_ut_import_document_hint}>"></textarea>
+<br /><{$lngstr.page_testmanager_import.document_howto}>
+</td></tr>
+
+<tr valign=top><td class=rowhdr2 colspan=2><a class=rowhdr2 href="javascript:void(0)" onclick="javascript:toggleSection('div_testmanager_import')"><{$lngstr.page_testmanager_import.section_delimiters}></td></tr>
+<tr valign=top><td class=rowone colspan=2><div id=div_testmanager_import style="display:<{if $smarty.cookies.div_testmanager_import and $smarty.cookies.div_testmanager_import=='Y'}>block<{else}>none<{/if}>"><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.question_delimiter}></td><td width="70%"><{getInputElement name=question_delimiter value=$g_vars.page.question_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.answer_delimiter}></td><td width="70%"><{getInputElement name=answer_delimiter value=$g_vars.page.answer_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.answer2_delimiter}></td><td width="70%"><{getInputElement name=answer2_delimiter value=$g_vars.page.answer2_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.correct_delimiter}></td><td width="70%"><{getInputElement name=correct_delimiter value=$g_vars.page.correct_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.points_delimiter}></td><td width="70%"><{getInputElement name=points_delimiter value=$g_vars.page.points_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.type_delimiter}></td><td width="70%"><{getInputElement name=type_delimiter value=$g_vars.page.type_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.subject_delimiter}></td><td width="70%"><{getInputElement name=subject_delimiter value=$g_vars.page.subject_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.preq_delimiter}></td><td width="70%"><{getInputElement name=preq_delimiter value=$g_vars.page.preq_delimiter}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_testmanager_import.postq_delimiter}></td><td width="70%"><{getInputElement name=postq_delimiter value=$g_vars.page.postq_delimiter}></td></tr>
+</table></div></td></tr>
+</table>
+
+<p class=center><input class=btn type=submit name=bsubmit value=" <{$lngstr.button_import}> "> <input class=btn type=submit name=bcancel value=" <{$lngstr.button_cancel}> "></form>
+
+<{include file="_footer.tpl.html"}>

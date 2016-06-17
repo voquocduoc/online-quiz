@@ -1,0 +1,86 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{if $g_vars.page.test_time.use}>
+<script language=JavaScript type="text/javascript"><!--
+var dStopTime = new Date();
+dStopTime.setHours(dStopTime.getHours()<{if $g_vars.page.test_time.hours}>+<{$g_vars.page.test_time.hours}><{/if}>,dStopTime.getMinutes()<{if $g_vars.page.test_time.minutes}>+<{$g_vars.page.test_time.minutes}><{/if}>,dStopTime.getSeconds()<{if $g_vars.page.test_time.seconds}>+<{$g_vars.page.test_time.seconds}><{/if}>);
+var clockID = 0;
+function UpdateClock() {
+ if(clockID) {
+  clearTimeout(clockID);
+  clockID  = 0;
+ }
+ var dNow = new Date();
+ if(dNow<dStopTime) {
+  dNow.setHours(dStopTime.getHours()-dNow.getHours(),dStopTime.getMinutes()-dNow.getMinutes(),dStopTime.getSeconds()-dNow.getSeconds());
+  strContent = "&nbsp;<b>"+setLeadingZero(dNow.getHours())+":"+setLeadingZero(dNow.getMinutes())+":"+setLeadingZero(dNow.getSeconds())+"</b>&nbsp;";
+  if(dNow.getMinutes()<1) strContent="<font color=#ff0000>"+strContent+"</font>";
+  document.getElementById("vtimer").innerHTML=strContent;
+  clockID = setTimeout("UpdateClock()", 500);
+ } else {
+  clearTimeout(clockID);
+  clockID = 0;
+  document.getElementById("vtimer").innerHTML = "<b>00:00:00</b>";
+ }
+}
+function setLeadingZero(i) {
+ return (i<10) ? "0"+i : i;
+}
+clockID = setTimeout("UpdateClock()", 500);
+//--></script>
+<{/if}>
+
+<p><form name=testqForm method=post action="test.php"><table cellpadding=0 cellspacing=5 border=0 width="100%">
+<tr><td>
+
+<table class=rowtable3 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowtwo valign=top><td id=vtimer align=center title="<{$lngstr.page_test.test_timer_hint}>"><{$lngstr.page_test.no_time_limit}></td><td width="80%" id=testname align=center title="<{$lngstr.page_test.testname_hint}>"><{$g_vars.page.test_name}></td></tr>
+<tr><td class=rowone colspan=2>
+
+<{include file="_notifications.tpl.html"}>
+<{if $g_vars.page.errors}></td></tr><tr><td class=rowone colspan=2><{/if}>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%">
+<{foreach from=$g_vars.page.question key=g_questionno item=question}>
+<tr vAlign=top><td width=10 style="padding-top: 8px;"><b><{$g_questionno}>.&nbsp;</b></td><td width="100%">
+
+<table cellpadding=5 cellspacing=3 border=0 width="100%"><tr><td class=question><{$g_vars.page.question.$g_questionno.text}></td></tr></table>
+<{foreach from=$g_vars.page.question.$g_questionno.answer key=answerno item=answer}>
+<table cellpadding=5 cellspacing=3 border=0 width="100%">
+<tr>
+<{if $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_MULTIPLECHOICE or $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_TRUEFALSE}>
+<td width="20"><input type=radio name=answer[<{$g_questionno}>] value=<{$answerno}><{if $g_vars.page.question.$g_questionno.answer.$answerno.selected}> checked<{/if}><{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}>></td>
+<td class=answer width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.text}></td></tr>
+<{elseif $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_MULTIPLEANSWER}>
+<td width="20"><input type=checkbox name=answer[<{$g_questionno}>][] value=<{$answerno}><{if $g_vars.page.question.$g_questionno.answer.$answerno.selected}> checked<{/if}><{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}>></td>
+<td class=answer width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.text}></td></tr>
+<{elseif $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_FILLINTHEBLANK or $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_ESSAY}>
+<td colspan=2><textarea name=answer[<{$g_questionno}>][] cols=60 rows=5<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}>><{$g_vars.page.question.$g_questionno.answer.$answerno.selected}></textarea></td></tr>
+<{/if}>
+<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK and $g_vars.page.question.$g_questionno.answer.$answerno.selected and $g_vars.page.question.$g_questionno.answer.$answerno.feedback}>
+<tr><td></td><td class=feedback width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.feedback}></td></tr>
+<{/if}>
+</table>
+<{/foreach}>
+
+</td></tr>
+<{/foreach}>
+</table>
+
+</td></tr>
+
+<tr><td class=rowtwo colspan=2>
+<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}>
+<input class=btn type=submit name=bsubmit value=" <{$lngstr.button_continue}> ">
+<{elseif $g_vars.page.errors_fatal}>
+<input class=btn type=submit name=bcancel value=" <{$lngstr.button_cancel}> ">
+<{else}>
+<table cellpadding=0 cellspacing=0 border=0 width="100%"><tr vAlign=top>
+<td width="100%"><input class=btn type=submit name=bsubmit value=" <{$lngstr.button_answer}> "></td>
+<td><input class=btn type=submit name=bfinish value=" <{$lngstr.page_test.finish_test}> " onclick="f=document.testqForm;if (confirm('<{$lngstr.page_test.qst_finish_test}>')) { f.action='test.php?action=finish&confirmed=1';f.submit();} else {return false;}"></td></tr></table>
+<{/if}>
+</td></tr></table>
+</td></tr></table></form>
+
+<{include file="_footer.tpl.html"}>

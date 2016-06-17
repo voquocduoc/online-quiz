@@ -1,0 +1,13 @@
+<p><table cellpadding=0 cellspacing=0 border=0 width="100%"><tr><td>
+<table cellpadding=0 cellspacing=0 border=0>
+<tr><td width=3><img src="images/1x1.gif" width=3 height=1></td>
+<{foreach from=$g_vars.page.menu_2_items key=key item=val name=foreach1}>
+<{if not $smarty.foreach.foreach1.first}>
+<td width=5><img src="images/1x1.gif" width=5 height=1></td>
+<{/if}>
+<td><table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-left: 1px solid #E0E7F6; border-top: 1px solid #E0E7F6; border-right: 1px solid #CFD6E3;"><tr><td colspan=3 height=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=1></td></tr><tr style="background: url(images/barsmall-<{if $g_vars.page.selected_tab==$key}>1<{else}>0<{/if}>-background.gif) repeat-x;"><td width=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=24></td><td align=center>&nbsp;&nbsp;<b><{if $g_vars.page.selected_tab==$key}><{$val[1]}><{else}><a class=bar2 href="<{$val[0]}>"><{$val[1]}></a><{/if}></b>&nbsp;&nbsp;</td><td width=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=24></td></tr><tr><td colspan=3 height=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=1></td></tr></table></td>
+<{/foreach}>
+<td width=3><img src="images/1x1.gif" width=3 height=1></td></tr>
+</table>
+</td><td width=53 align=right><a id="infobar_button" href="javascript:ShowInfoBar(<{if $smarty.cookies.igt_showinfobar && $smarty.cookies.igt_showinfobar=='Y'}>false<{else}>true<{/if}>);" title="<{$lngstr.tooltip_button}>"><img src="images/dialog-info-small.gif" width=24 height=24 border=0></a><img src="images/1x1.gif" width=5 height=1><a id="helpbar_button" href="guide/guide.php?page=<{getImplode glue="." pieces=$g_vars.page.location}>" title="<{$lngstr.help_button}>" target="_blank"><img src="images/dialog-help-small.gif" width=24 height=24 border=0></a></td><td width=3><img src="images/1x1.gif" width=3 height=1></td></tr></table>
+<table cellpadding=0 cellspacing=0 border=0 width="100%" style="background: #CFD6E3;"><tr><td height=1><img src="images/1x1.gif" width=1 height=1></tr></table>

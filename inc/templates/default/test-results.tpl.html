@@ -1,0 +1,52 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<p><form method=post action="test.php"><table cellpadding=0 cellspacing=5 border=0 width="100%">
+<tr><td>
+
+<table class=rowtable3 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowtwo valign=top><td colspan=2>&nbsp;</td></tr>
+<tr><td class=rowone colspan=2>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%"><tr vAlign=top><td width=1><img src="images/1x1.gif" width=1 height=260></td><td>
+
+<{if $g_vars.page.custom_report}>
+
+<{$g_vars.page.custom_report}>
+
+<{else}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<p><{$g_vars.page.test_name_label}>
+<br><{$g_vars.page.test_date_label}>
+<br><{$g_vars.page.time_spent_label}></p>
+<p>
+
+<{if $smarty.session.MAIN.yt_result_showanswers or $smarty.session.MAIN.yt_result_showpoints or $smarty.session.MAIN.yt_result_showgrade or $smarty.session.MAIN.yt_result_showgradefeedback}>
+<{if $smarty.session.MAIN.yt_result_showgrade}><{$g_vars.page.grade_label}><br><{/if}>
+<{if $smarty.session.MAIN.yt_result_showgradefeedback}><{$g_vars.page.gradefeedback_label}><br><{/if}>
+<{if $smarty.session.MAIN.yt_result_showanswers}><{$g_vars.page.correct_answers_label}><br><{/if}>
+<{if $smarty.session.MAIN.yt_result_showpoints}><{$g_vars.page.points_label}><br><{if $smarty.session.MAIN.yt_points_pending > 0}><{$g_vars.page.points_pending_label}><{/if}><{/if}>
+<{else}><{$lngstr.label_result_do_not_show}><{/if}>
+
+<{if $g_vars.page.show_advancedreport_html}><p><a href="getfile.php?action=thtml&resultid=<{$smarty.session.MAIN.resultid}>" target=_blank><img width=20 height=20 border=0 src="images/button-report-html.gif" title="<{$lngstr.page_reportsmanager.view_html}>"> <{$lngstr.page_test.result.showhtml}></a></p><{/if}>
+<{if $g_vars.page.show_advancedreport_pdf}><p><a href="getfile.php?action=tpdf&resultid=<{$smarty.session.MAIN.resultid}>&file=test-results.pdf" target=_blank><img width=20 height=20 border=0 src="images/button-pdf.gif" title="<{$lngstr.page_reportsmanager.view_pdf}>"> <{$lngstr.label_result_showpdf}></a></p><{/if}>
+
+<{/if}>
+
+</td></tr></table></td></tr>
+
+<{if $g_vars.page.content_protection}>
+<tr class=rowtwo><td colspan=2 align=center><{if $g_vars.page.show_nexttest}><a href="test.php?testid=<{$smarty.session.MAIN.yt_nexttestid}>"><{$lngstr.page_test.results_nexttest}></a><{else}><a href="javascript:void(0)" onClick="window.opener.location.href='index.php'; window.close();"><{$lngstr.page_test.close_this_window}></a><{/if}></td>
+<{elseif $g_vars.page.show_reportsmanager}>
+<tr class=rowtwo><td align=center><{if $g_vars.page.show_nexttest}><a href="test.php?testid=<{$smarty.session.MAIN.yt_nexttestid}>"><{$lngstr.page_test.results_nexttest}></a><{else}><a href="index.php"><{$lngstr.page_test_results_homepage}></a><{/if}></td>
+<td align=center><a href="reports-manager.php?action=viewq&resultid=<{$smarty.session.MAIN.resultid}>"><{$lngstr.page_test_results_viewresults}></a>
+<{else}>
+<tr class=rowtwo><td colspan=2 align=center><{if $g_vars.page.show_nexttest}><a href="test.php?testid=<{$smarty.session.MAIN.yt_nexttestid}>"><{$lngstr.page_test.results_nexttest}></a><{else}><a href="index.php"><{$lngstr.page_test_results_homepage}></a><{/if}>
+<{/if}>
+
+</td></tr></table>
+</td></tr></table></form>
+
+<{include file="_footer.tpl.html"}>

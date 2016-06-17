@@ -1,0 +1,43 @@
+body {
+margin: 5px;
+padding: 0;
+}
+
+h1 {
+color: #000000;
+font-family: Tahoma, Verdana, Arial;
+font-size: 14pt;
+font-weight: bold;
+text-align: left
+}
+h2 {
+color: #000000;
+font-family: Tahoma, Verdana, Arial;
+font-size: 12pt;
+font-weight: bold;
+text-align: left
+}
+h3 {
+color: #000000;
+font-family: Tahoma, Verdana, Arial;
+font-size: 11pt;
+text-align: left
+}
+
+p, div, span, td, th {
+color: black;
+font-family: Tahoma, Verdana, Arial;
+font-size: small;
+}
+
+ul, ol {
+color: black;
+font-family: Tahoma, Verdana, Arial;
+font-size: small;
+# list-style-image: url("images/bullet.gif");
+}
+
+A {color: #004A94; text-decoration: none;}
+A:visited {color: #004A94; text-decoration: none;}
+A:link {color: #004A94; text-decoration: none;}
+A:hover {color: #004A94; text-decoration: underline;}

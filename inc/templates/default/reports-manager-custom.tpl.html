@@ -1,0 +1,11 @@
+<{* Показываем панель настройки отчетов: *}>
+<table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="">
+<tr valign=top><td class=rowhdr2 colspan=2><a class=rowhdr2 href="javascript:void(0)" onclick="javascript:toggleSection('div_reportsmanager_reports')"><{$lngstr.page_reportsmanager.div_report_header}></td></tr>
+<tr valign=top><td class=rowone colspan=2><div id=div_reportsmanager_reports style="display:<{if not $smarty.cookies.div_reportsmanager_reports or $smarty.cookies.div_reportsmanager_reports=='Y'}>block<{else}>none<{/if}>"><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=<{getRowNo}>><td><{$lngstr.page_reportsmanager.report_list}></td><td><{$g_vars.page.rtemplateid_content}></td></tr>
+</table>
+<br><b><a href="reports-manager.php?action=exportcsv<{$g_vars.page.addon_rtemplateid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limitto}>"><{$lngstr.page_reportsmanager.report_export_to_csv}></a> | <a href="reports-manager.php?action=preview<{$g_vars.page.addon_rtemplateid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limitto}>" target="_blank"><{$lngstr.page_reportsmanager.report_preview}></a> | <a href="reports-manager.php?action=print<{$g_vars.page.addon_rtemplateid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limitto}>" target="_blank"><{$lngstr.page_reportsmanager.report_print}></a>
+</div></td></tr>
+</table>
+<{* Показываем панель настройки отчетов. *}>
+

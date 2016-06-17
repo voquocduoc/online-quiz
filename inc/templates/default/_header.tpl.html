@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="<{$lngstr.text_direction}>"><head><title><{$g_vars.page.title}><{$lngstr.item_separator}><{$srv_settings.title_postfix}></title>
+<meta http-equiv="Content-Language" content="<{$lngstr.meta_contentlanguage}>">
+<meta content="text/html; charset=<{$lngstr.meta_charset}>" http-equiv=Content-Type>
+<link rel="SHORTCUT ICON" href="/favicon.ico">
+<link href="shared/style.css" rel=stylesheet type=text/css>
+<script language=javascript src="shared/shared.js" type="text/javascript"></script>
+<{$g_vars.page.meta}></head>
+<body bgcolor="#ffffff"<{$g_vars.page.body_tag}><{if $g_vars.page.content_protection}>oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"<{/if}>>
+<{if $g_vars.page.content_protection}><script language="JavaScript1.1">
+// <!--
+var debug = true;
+function right(e) {
+if (navigator.appName == 'Netscape' && (e.which == 3 || e.which == 2)) return false;
+else if (navigator.appName == 'Microsoft Internet Explorer' && (event.button == 2 || event.button == 3)) {
+alert('Please do not copy this page content'); return false;
+}
+return true;
+}
+document.onmousedown=right;
+if (document.layers)
+window.captureEvents(Event.MOUSEDOWN);
+window.onmousedown=right; //--></script><{/if}>
+<p><table cellpadding=0 cellspacing=0 border=0 width="100%">
+<tr><td width=200><{$lngstr.branding.top_logo}></td><td width="100%" align=center class=top_section><{$g_vars.page.title}></td></tr>
+<tr><td colspan=2 height=1 width=100% style="background-color: #E7E9EF;"><img src="images/1x1.gif" width=1 height=1></td></tr>
+
+<{if not $g_vars.page.hide_cpanel}>
+<tr><td colspan=2>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%" style="border-left: 1px solid #E0E7F6; border-right: 1px solid #CFD6E3; border-bottom: 1px solid #CFD6E3;">
+<tr style="background: url(images/mainbar-background.gif) repeat-x;">
+<td width=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=32></td><td align=center><b><a class=bar1 href="index.php"><{$lngstr.panel_home}></a></b></td><{* <td align=center><b><a class=bar1 href="resources.php"><{$lngstr.page_resources.header}></a></b></td> *}>
+<{if $smarty.session.MAIN.access_questionbank > 0}>
+<td align=center><b><a class=bar1 href="question-bank.php"><{$lngstr.panel_questionbank}></a></b></td>
+<{elseif $smarty.session.MAIN.access_subjects > 0}>
+<td align=center><b><a class=bar1 href="subjects.php"><{$lngstr.panel_questionbank}></a></b></td>
+<{/if}>
+<{if $smarty.session.MAIN.access_testmanager > 0}>
+<td align=center><b><a class=bar1 href="test-manager.php"><{$lngstr.panel_edittests}></a></b></td>
+<{elseif $smarty.session.MAIN.access_gradingsystems > 0}>
+<td align=center><b><a class=bar1 href="grades.php"><{$lngstr.panel_edittests}></a></b></td>
+<{elseif $smarty.session.MAIN.access_emailtemplates > 0}>
+<td align=center><b><a class=bar1 href="email-templates.php"><{$lngstr.panel_edittests}></a></b></td>
+<{elseif $smarty.session.MAIN.access_reporttemplates > 0}>
+<td align=center><b><a class=bar1 href="report-templates.php"><{$lngstr.panel_edittests}></a></b></td>
+<{/if}>
+<{if $smarty.session.MAIN.access_reportsmanager > 0}>
+<td align=center><b><a class=bar1 href="reports-manager.php"><{$lngstr.panel_results}></a></b></td>
+<{/if}>
+<{if $smarty.session.MAIN.access_users > 0}>
+<td align=center><b><a class=bar1 href="users.php"><{$lngstr.panel_usersandgroups}></a></b></td>
+<{elseif $smarty.session.MAIN.access_groups > 0}>
+<td align=center><b><a class=bar1 href="groups.php"><{$lngstr.panel_usersandgroups}></a></b></td>
+<{elseif $smarty.session.MAIN.access_config > 0}>
+<td align=center><b><a class=bar1 href="config.php"><{$lngstr.panel_usersandgroups}></a></b></td>
+<{elseif $smarty.session.MAIN.access_visitors > 0}>
+<td align=center><b><a class=bar1 href="visitors.php"><{$lngstr.panel_usersandgroups}></a></b></td>
+<{/if}>
+<td align=center><b><a class=bar1 href="signout.php"><{$lngstr.panel_signout}></a></b></td>
+<td width=1 style="background: #ffffff"><img src="images/1x1.gif" width=1 height=32></td></tr></table>
+</td></tr>
+<{/if}>
+<tr><td colspan=2 height=7 width=100%><img src="images/1x1.gif" width=1 height=7></td></tr>
+<tr><td colspan=2>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%">
+<tr vAlign=top><td width="1%"><img src="images/1x1.gif" width=2 height=1></td><td>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%">
+<tr><td class=box_area>

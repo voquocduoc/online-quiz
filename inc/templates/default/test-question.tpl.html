@@ -1,0 +1,116 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{if $g_vars.page.test_time.use}>
+<script language=JavaScript type="text/javascript"><!--
+var dStopTime = new Date();
+dStopTime.setHours(dStopTime.getHours()<{if $g_vars.page.test_time.hours}>+<{$g_vars.page.test_time.hours}><{/if}>,dStopTime.getMinutes()<{if $g_vars.page.test_time.minutes}>+<{$g_vars.page.test_time.minutes}><{/if}>,dStopTime.getSeconds()<{if $g_vars.page.test_time.seconds}>+<{$g_vars.page.test_time.seconds}><{/if}>);
+var clockID = 0;
+function UpdateClock() {
+ if(clockID) {
+  clearTimeout(clockID);
+  clockID  = 0;
+ }
+ var dNow = new Date();
+ if(dNow<dStopTime) {
+  dNow.setHours(dStopTime.getHours()-dNow.getHours(),dStopTime.getMinutes()-dNow.getMinutes(),dStopTime.getSeconds()-dNow.getSeconds());
+  strContent = "&nbsp;<b>"+setLeadingZero(dNow.getHours())+":"+setLeadingZero(dNow.getMinutes())+":"+setLeadingZero(dNow.getSeconds())+"</b>&nbsp;";
+  if(dNow.getMinutes()<1) strContent="<font color=#ff0000>"+strContent+"</font>";
+  document.getElementById("vtimer").innerHTML=strContent;
+  clockID = setTimeout("UpdateClock()", 500);
+ } else {
+  clearTimeout(clockID);
+  clockID = 0;
+  document.getElementById("vtimer").innerHTML = "<b>00:00:00</b>";
+ }
+}
+function setLeadingZero(i) {
+ return (i<10) ? "0"+i : i;
+}
+clockID = setTimeout("UpdateClock()", 500);
+//--></script>
+<{/if}>
+
+<script language=JavaScript type="text/javascript"><!--
+function checkAnswer(ctlToggleAllCB, nAnswersAllowedToSelect) {
+	var bAllowTheAnswerCheck = false;
+	var nAnswersSelected = 0;
+	var ctlForm = ctlToggleAllCB.form;
+	var ctlTR = null;
+	for (var i = 0; i < ctlForm.elements.length; i++) {
+	        var ctl = ctlForm.elements[i];
+	        if (ctl.name.indexOf("answer") == 0) {
+					if (ctl.checked)
+					 nAnswersSelected = nAnswersSelected + 1;
+	        }
+	}
+	if ((nAnswersAllowedToSelect > 0) && (nAnswersSelected > nAnswersAllowedToSelect)) {
+		return false;
+	} else {
+		return true;
+	}
+}
+//--></script>
+
+<p><form name=testqForm method=post action="test.php"><table cellpadding=0 cellspacing=5 border=0 width="100%">
+<tr><td>
+
+<table class=rowtable3 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowtwo valign=top><td id=vtimer align=center title="<{$lngstr.page_test.test_timer_hint}>" width=150><{$lngstr.page_test.no_time_limit}></td><td id=qcounter align=center title="<{$g_vars.page.questionindicator_hint}>"><nobr>&nbsp;<{$g_vars.page.questionindicator_hint}>&nbsp;</nobr></td><td width="60%" id=testname align=center title="<{$lngstr.page_test.testname_hint}>"><{$g_vars.page.test_name}></td></tr>
+<tr><td class=rowone colspan=3>
+
+<{include file="_notifications.tpl.html"}>
+<{if $g_vars.page.errors}></td></tr><tr><td class=rowone colspan=3><{/if}>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%"><tr vAlign=top><td width=1><img src="images/1x1.gif" width=1 height=260></td><td>
+
+<table cellpadding=5 cellspacing=3 border=0 width="100%"><tr><td class=question><{$g_vars.page.question.$g_questionno.text}></td></tr></table>
+<{foreach from=$g_vars.page.question.$g_questionno.answer key=answerno item=answer}>
+<table cellpadding=5 cellspacing=3 border=0 width="100%">
+<tr>
+<{if $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_MULTIPLECHOICE or $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_TRUEFALSE}>
+<td width="20"><input type=radio name=answer[<{$g_questionno}>] value=<{$answerno}><{if $g_vars.page.question.$g_questionno.answer.$answerno.selected}> checked<{/if}><{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}>></td>
+<td class=answer width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.text}></td></tr>
+<{elseif $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_MULTIPLEANSWER}>
+<td width="20"><input type=checkbox name=answer[<{$g_questionno}>][] value=<{$answerno}><{if $g_vars.page.question.$g_questionno.answer.$answerno.selected}> checked<{/if}><{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}><{if IGT_MULTIPLE_ANSWER_DO_NOT_ALLOW_MORE_ANSWERS_THAN_MARKED_AS_CORRECT}> onclick="return checkAnswer(this, <{$g_vars.page.question.$g_questionno.correct_answer_count}>);"<{/if}>></td>
+<td class=answer width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.text}></td></tr>
+<{elseif $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_FILLINTHEBLANK or $g_vars.page.question.$g_questionno.type == QUESTION_TYPE_ESSAY}>
+<td colspan=2><textarea name=answer[<{$g_questionno}>][] cols=60 rows=5<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}> disabled=disabled<{/if}>><{$g_vars.page.question.$g_questionno.answer.$answerno.text}></textarea></td></tr>
+<{/if}>
+<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK and $g_vars.page.question.$g_questionno.answer.$answerno.selected and $g_vars.page.question.$g_questionno.answer.$answerno.feedback}>
+<tr><td></td><td class=feedback width="100%"><{$g_vars.page.question.$g_questionno.answer.$answerno.feedback}></td></tr>
+<{/if}>
+</table>
+
+<{/foreach}>
+
+</td></tr></table></td></tr>
+
+<{if $g_vars.page.review.mode == IGT_TEST_REVIEW_ALLOWED}>
+<tr><td class=rowtwo colspan=3>
+<select class=inp name="review_questionno" id="review_questionno">
+<option value="" selected><{$lngstr.label_none}></option>
+<{foreach from=$g_vars.page.review.question key=questionno item=question}>
+<option value="<{$questionno}>"<{if $questionno == $g_vars.page.variables.yt_questionno_current}> selected=selected<{/if}>><{$questionno}> - <{$g_vars.page.review.question.$questionno.text_truncated}></option>
+<{/foreach}>
+</select>&nbsp;<input class=btn type=submit name=breview value=" <{$lngstr.page_test.review_question}> ">
+</td></tr>
+<{/if}>
+
+<tr><td class=rowtwo colspan=3>
+<{if $smarty.session.MAIN.yt_state == TEST_STATE_QFEEDBACK}>
+<input class=btn type=submit name=bsubmit value=" <{$lngstr.button_continue}> ">
+<{elseif $g_vars.page.errors_fatal}>
+<input class=btn type=submit name=bcancel value=" <{$lngstr.button_cancel}> ">
+<{else}>
+<table cellpadding=0 cellspacing=0 border=0 width="100%"><tr vAlign=top>
+<td width="100%"><{if $g_vars.page.review.mode == -1}><input class=btn type=submit name=bsubmit_prev value=" <{$lngstr.button_prev}> "> <input class=btn type=submit name=bsubmit_next value=" <{$lngstr.button_next}> "><{else}><{if $g_vars.page.variables.yt_questionno >= $g_vars.page.variables.yt_questioncount}><{if $g_vars.page.review.mode == IGT_TEST_REVIEW_ALLOWED}><input class=btn type=submit name=bsubmit_answer value=" <{$lngstr.button_answer}> ">&nbsp;<{/if}><input class=btn_important type=submit name=bsubmit value=" <{$lngstr.button_submit}> "><{else}><input class=btn type=submit name=bsubmit_answer value=" <{$lngstr.button_answer}> "><{/if}><{/if}></td>
+<td><{if IGT_TEST_ALLOW_TO_FINISH_TESTS}><table cellpadding=2 cellspacing=0 border=0 width="100%"><tr vAlign=middle><td><a href="test.php?action=finish" onclick="return confirmMessage(this, '<{$lngstr.page_test.qst_finish_test}>')"><img width=20 height=20 border=0 src="images/button-cross.gif" title="<{$lngstr.page_test.finish_test}>"></a></td><td><nobr>&nbsp;<a href="test.php?action=finish" onclick="return confirmMessage(this, '<{$lngstr.page_test.qst_finish_test}>')"><{$lngstr.page_test.finish_test}></a></nobr></td></tr></table><{/if}></td></tr></table>
+<{/if}>
+</td></tr>
+
+</table>
+
+</td></tr></table></form>
+
+<{include file="_footer.tpl.html"}>

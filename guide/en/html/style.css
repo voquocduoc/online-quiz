@@ -1,0 +1,66 @@
+* {
+	color: black;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: small;
+}
+A {color: #004A94; text-decoration: none;}
+A:visited {color: #004A94; text-decoration: none;}
+A:link {color: #004A94; text-decoration: none;}
+A:hover {color: #004A94; text-decoration: underline;}
+H1 {font-size: 22pt; font-weight: bold;}
+H2 {font-size: 18pt; font-weight: bold;}
+H3 {font-size: 16pt; font-weight: bold;}
+H4 {font-size: 14pt; font-weight: bold;}
+H5 {font-size: 12pt; font-weight: bold;}
+
+TABLE.cmn{     
+	border-color: #000;
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+	margin: 6px 0;
+	width: 100%;
+	}
+TABLE.cmn TH{
+	border-color: #000;
+	border-style: solid;
+	border-width: 1px;
+	background: #DDDDDD;
+	font-size: small;
+	padding: 2px 4px;
+	text-align: left;
+	vertical-align: bottom;
+	}
+TABLE.cmn TD{
+	border-color: #000;
+	border-style: solid;
+	border-width: 1px;
+	font-size: small;
+	padding: 2px 4px;
+	vertical-align: top;
+	}
+TD.td-bg{
+	background: #DDDDDD;
+	width: 30%;	
+	}
+UL, OL{
+	margin: 6px 25px;
+	padding: 0;
+	}
+LI{
+	margin: 0 10px;
+	padding: 1px 0;
+	}
+.left{
+	float: left;
+	}
+.right{
+	float: right;
+	}
+i{
+	color: gray;
+	}
+.toc {font-size: small;}
+.prefix{color: green;}	.prefixstrong{color: green;}
+.value{color: navy;}	.value strong{color: navy;}
+.example{color: navy;}	.example strong{color: navy;}

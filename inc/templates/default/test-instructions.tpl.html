@@ -1,0 +1,20 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+<{* <{includeCustomFile file="_header" value=$g_vars.page.testid}> *}>
+
+<p><form method=post action="<{$g_vars.page.form_action_url}>"><table cellpadding=0 cellspacing=5 border=0 width="100%">
+<tr><td>
+
+<table class=rowtable3 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowtwo valign=top><td id=vtimer align=center title="<{$lngstr.page_test.test_timer_hint}>" width=150><{$g_vars.page.test_timer}></td><td id=qcounter align=center title="<{$g_vars.page.questionindicator_hint}>"><nobr>&nbsp;<{$g_vars.page.questionindicator}>&nbsp;</nobr></td><td width="60%" id=testname align=center title="<{$lngstr.page_test.testname_hint}>"><{$g_vars.page.test_name}></td></tr>
+<tr><td class=rowone colspan=3>
+
+<table cellpadding=0 cellspacing=0 border=0 width="100%"><tr vAlign=top><td width=1><img src="images/1x1.gif" width=1 height=260></td><td>
+<{$g_vars.page.test_instructions}>
+</td></tr></table></td></tr>
+
+<tr><td class=rowtwo colspan=3><{if $g_vars.page.next_page_exists}><input class=btn type=submit name=bnextpage value=" <{$lngstr.page_test_instructions.next_page}> "><{else}><input class=btn type=submit name=bstarttest value=" <{$lngstr.button_starttest}> "><{/if}></td></tr></table>
+</td></tr></table></form>
+
+<{* <{includeCustomFile file="_footer" value=$g_vars.page.testid}> *}>
+<{include file="_footer.tpl.html"}>

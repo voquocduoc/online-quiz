@@ -1,0 +1,18 @@
+END USER LICENSE AGREEMENT (EULA)
+
+NOTICE TO USER:
+||  ################################# NOTICE #################################  ||
+||  #                                                                        #  ||
+||  #   We (MST) hold no responsibility for ANY releases. Use at your own    #  ||
+||  #       discretion. If you like this software, then please buy it.       #  ||
+||  #                                                                        #  ||
+||  #  We DO NOT provide technical support for any type of issues which may  #  ||
+||  #  be related to:                                                        #  ||
+||  #      (e.g. installation, buggy script, upgrade, poor coding & etc).    #  ||
+||  # 									     #  ||
+||  #  Additionally, we DON'T condone the redistribution or the uses of our  #  ||
+||  #               release for any type of commercial gain.                 #  ||
+||  #                                                                        #  ||
+||  #      ***STRICTLY FOR EVALUATION AND EDUCATIONAL PURPOSES ONLY***       #  ||
+||  #                                                                        #  ||
+||  ##########################################################################  ||

@@ -1,0 +1,18 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{include file="_menu-2.tpl.html"}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<{include file="_notifications.tpl.html"}>
+
+<p><form method=post action="config.php?action=section&id=ldap">
+<table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_config.list_length}></td><td width="70%"><{$g_vars.page.list_length_content}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_config.text_editor}></td><td width="70%"><{$g_vars.page.text_editor_content}></td></tr>
+<tr class=<{getRowNo}>><td width="30%"><{$lngstr.page_config.store_logs}></td><td width="70%"><{$g_vars.page.store_logs_content}></td></tr>
+</table>
+<p class=center><input class=btn type=submit name=bsubmit value=" <{$lngstr.button_update}> "> <input class=btn type=submit name=bcancel value=" <{$lngstr.button_cancel}> "></form>
+
+<{include file="_footer.tpl.html"}>

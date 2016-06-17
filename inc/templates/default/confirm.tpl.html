@@ -1,0 +1,19 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<{include file="_notifications.tpl.html"}>
+
+<p><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<tr height="100%">
+<td vAlign=middle align=center>
+<br /><br /><br />
+<strong><{$g_vars.page.confirm_request}></strong><br />
+<a href="<{$g_vars.page.confirm_url}>&confirmed=1"><{$lngstr.label_yes}></a> / <a href="<{$g_vars.page.confirm_url}>&confirmed=0"><{$lngstr.label_no}></a>
+<br /><br /><br />
+</td>
+</tr>
+</table></p>
+
+<{include file="_footer.tpl.html"}>

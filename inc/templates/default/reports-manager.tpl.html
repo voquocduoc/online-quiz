@@ -1,0 +1,123 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{include file="_menu-2.tpl.html"}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<{include file="_infobar.tpl.html"}>
+
+<p><table cellpadding=0 cellspacing=0 border=0><tr vAlign=top><td>
+<{* Показываем панель настройки фильтра: *}>
+<table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="">
+<tr valign=top><td class=rowhdr2 colspan=2><a class=rowhdr2 href="javascript:void(0)" onclick="javascript:toggleSection('div_filter_reportsmanager')"><{$lngstr.label_filter_header}></td></tr>
+<tr valign=top><td class=rowone colspan=2><div id=div_filter_reportsmanager style="display:<{if not $smarty.cookies.div_filter_reportsmanager or $smarty.cookies.div_filter_reportsmanager=='Y'}>block<{else}>none<{/if}>"><form name=filterForm method=post action="reports-manager.php<{$g_vars.page.filter.url_addon}>"><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<{* "result_date1", "result_date2" filter: *}>
+<tr class=<{getRowNo}>><td><{$lngstr.page_reportsmanager.filter_dates_years}></td><td><select name="result_date" onchange="InsertRelativeDate(this.form.result_datestart, this[this.selectedIndex].value)"><{html_options options=$lngstr.page_reportsmanager.filter_dates_years_items selected=$g_vars.page.filter.result_date}></select> <input name="result_datestart" id="result_datestart" value="<{$g_vars.page.filter.result_datestart_formatted}>" class=inp type=text size=15<{if $g_vars.page.filter.result_date}> disabled=disabled<{/if}>><a href="javascript:void(0);" title="<{$lngstr.calendar.hint}>"><img src="images/button-calendar.gif" alt="<{$lngstr.calendar.hint}>" class="calendar-icon" onclick="return showCalendar('result_datestart', '<{$lngstr.language.calendar.date_format}>', '24', true);" onmouseover="this.className+=' calendar-icon-hover';" onmouseout="this.className = this.className.replace(/\s*calendar-icon-hover/ig, '');"></a> ... <input name="result_dateend" id="result_dateend" value="<{$g_vars.page.filter.result_dateend_formatted}>" class=inp type=text size=15><a href="javascript:void(0);" title="<{$lngstr.calendar.hint}>"><img src="images/button-calendar.gif" alt="<{$lngstr.calendar.hint}>" class="calendar-icon" onclick="return showCalendar('result_dateend', '<{$lngstr.language.calendar.date_format}>', '24', true);" onmouseover="this.className+=' calendar-icon-hover';" onmouseout="this.className = this.className.replace(/\s*calendar-icon-hover/ig, '');"></a></td></tr>
+<{if $g_vars.page.user_name_content}><tr class=<{getRowNo}>><td><{$lngstr.label_username}></td><td><{$g_vars.page.user_name_content}></td></tr><{/if}>
+<{if $g_vars.page.user_lastname_content}><tr class=<{getRowNo}>><td><{$lngstr.label_lastname}></td><td><{$g_vars.page.user_lastname_content}></td></tr><{/if}>
+<{if $g_vars.page.user_department_content}><tr class=<{getRowNo}>><td><{$lngstr.label_department}></td><td><{$g_vars.page.user_department_content}></td></tr><{/if}>
+<tr class=<{getRowNo}>><td><{$lngstr.page_edittests_testname}></td><td><{$g_vars.page.testid_content}></td></tr>
+<tr class=<{getRowNo}>><td><{$lngstr.page_edittests_subjectid}></td><td><{$g_vars.page.subjectid_content}></td></tr>
+</table>
+<br><input class=btn type=submit name=bsetfilter value=" <{$lngstr.button_set_filter}> "> <input class=btn type=submit name=bremovefilter value=" <{$lngstr.button_remove_filter}> "></form>
+</div></td></tr>
+</table>
+<{* Показываем панель настройки фильтра. *}>
+</td><td>
+<{* Показываем панель статистики: *}>
+<{* Показываем панель статистики. *}>
+<{* Показываем панель настройки отчетов: *}>
+<{* Показываем панель настройки отчетов. *}>
+</td></table></p>
+
+<{* 3. Делаем запрос на выборку результатов тестирования: *}>
+<p><form name=resultsForm class=iactive method=post><table cellpadding=0 cellspacing=0 border=0 width="100%"><tr><td>
+<table cellpadding=0 cellspacing=0 border=0 width="100%" style="background: url(images/toolbar-background.gif) repeat-x"><tr vAlign=center><td width=2><img src="images/toolbar-left.gif" width=2 height=32></td><td width=32>
+<{if $smarty.session.MAIN.access_reportsmanager > 1}>
+<img src="images/button-cross-big.gif" border=0 title="<{$lngstr.label_action_results_delete}>" style="cursor: hand;" onclick="f=document.resultsForm;if (confirm('<{$lngstr.qst_delete_records}>')) { f.action='reports-manager.php?action=delete&confirmed=1';f.submit();}">
+<{else}><img src="images/button-cross-big-inactive.gif" border=0><{/if}>
+</td>
+
+<td width="100%">&nbsp;</td>
+<{if $g_vars.page.limitcount > 0}>
+	<td vAlign=middle width=32><nobr>&nbsp;<{getPrintF text=$lngstr.label.KtoLofN var1=$g_vars.page.navbar.record_from var2=$g_vars.page.navbar.record_to var3=$g_vars.page.navbar.record_count}>&nbsp;</nobr></td>
+	<td width=3><img src="images/toolbar-separator.gif" width=3 height=32 border=0></td>
+	<td vAlign=middle width=32><nobr>&nbsp;
+	<{foreach from=$g_vars.page.navbar.page_window_numbers item=page}>
+		<{if $page != $g_vars.page.pageno_current}>
+		&nbsp;<a href="reports-manager.php?pageno=<{$page}><{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><{$page}></a>&nbsp;
+		<{else}>
+		<span class=currentitem>&nbsp;<{$page}>&nbsp;</span>
+		<{/if}>
+	<{/foreach}>
+	</nobr></td>
+	<td width=3><img src="images/toolbar-separator.gif" width=3 height=32 border=0></td>
+	<{if $g_vars.page.pageno_current > 1}>
+	<td width=32><a href="reports-manager.php?pageno=1<{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><img src="images/button-first-big.gif" border=0 title="<{$lngstr.button_first_page}>"></a></td>
+	<td width=32><a href="reports-manager.php?pageno=<{$g_vars.page.pageno_previous}><{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><img src="images/button-prev-big.gif" border=0 title="<{$lngstr.button_prev_page}>"></a></td>
+	<{else}>
+	<td width=32><img src="images/button-first-big-inactive.gif" border=0 title="<{$lngstr.button_first_page}>"></td>
+	<td width=32><img src="images/button-prev-big-inactive.gif" border=0 title="<{$lngstr.button_prev_page}>"></td>
+	<{/if}>
+	<{if $g_vars.page.pageno_current < $g_vars.page.page_count}>
+	<td width=32><a href="reports-manager.php?pageno=<{$g_vars.page.pageno_next}><{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><img src="images/button-next-big.gif" border=0 title="<{$lngstr.button_next_page}>"></a></td>
+	<td width=32><a href="reports-manager.php?pageno=<{$g_vars.page.page_count}><{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><img src="images/button-last-big.gif" border=0 title="<{$lngstr.button_last_page}>"></a></td>
+	<{else}>
+	<td width=32><img src="images/button-next-big-inactive.gif" border=0 title="<{$lngstr.button_next_page}>"></td>
+	<td width=32><img src="images/button-last-big-inactive.gif" border=0 title="<{$lngstr.button_last_page}>"></td>
+	<{/if}>
+<{/if}>
+
+<td width=2><img src="images/toolbar-right.gif" width=2 height=32></td></tr></table>
+
+</td></tr><tr><td>
+<table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr vAlign=top><td class=rowhdr1 title="<{$lngstr.label_hdr_select_hint}>" width=22><input type=checkbox name=toggleAll onclick="toggleCBs(this);"></td>
+<{getTableHeaders url=$g_vars.page.url columns=$g_vars.page.tables.1.columns orderno=$g_vars.page.orderno direction=$g_vars.page.direction}>
+<td class=rowhdr1 colspan=4><{$lngstr.label_hdr_action}></td></tr>
+
+<{foreach from=$g_vars.page.tables.1.rows key=i_counter item=row}>
+
+<{setNewRowNo}><tr id=tr_<{getThisRowNo}> class=<{getThisRowClass}> onmouseover="rollTR(<{getThisRowNo}>,1);" onmouseout="rollTR(<{getThisRowNo}>,0);"><td align=center width=22><input id=cb_<{getThisRowNo}> type=checkbox name=box_results[] value="<{$g_vars.page.tables.1.rows.$i_counter.resultid}>" onclick="toggleCB(this);"></td>
+<td align=right><{$g_vars.page.tables.1.rows.$i_counter.resultid}></td>
+<td><{$g_vars.page.tables.1.rows.$i_counter.result_datestart_formatted}></td>
+<td><nobr><a href="reports-manager.php?userid=<{if $smarty.get.userid != ''}><{else}><{$g_vars.page.tables.1.rows.$i_counter.userid}><{/if}><{$g_vars.page.addon_limitto}><{$g_vars.page.addon_order}>"><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_name}></a> [<a href="users.php?userid=<{$g_vars.page.tables.1.rows.$i_counter.userid}>&action=edit" title="<{$lngstr.label.view_edit_user}>"><{$g_vars.page.tables.1.rows.$i_counter.userid}></a>]</nobr><br /><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_firstname}>&nbsp;<{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.user_lastname}></td>
+<td><a href="reports-manager.php?testid=<{if $smarty.get.testid != ''}><{else}><{$g_vars.page.tables.1.rows.$i_counter.testid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limit}><{/if}>"><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.test_name}></a></td>
+
+<{if $g_vars.page.tables.1.rows.$i_counter.test_attempts}>
+<td align=center><{if $g_vars.page.tables.1.rows.$i_counter.test_attempts <= $g_vars.page.tables.1.rows.$i_counter.test_attempt_count}><a href="reports-manager.php?action=attempts&set=0&testid=<{$g_vars.page.tables.1.rows.$i_counter.testid}>&userid=<{$g_vars.page.tables.1.rows.$i_counter.userid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limit}>"><img src="images/button-checkbox-2.gif" width=13 height=13 border=0 title="<{$lngstr.label_yes}>"></a><{else}><a href="reports-manager.php?action=attempts&set=1&testid=<{$g_vars.page.tables.1.rows.$i_counter.testid}>&userid=<{$g_vars.page.tables.1.rows.$i_counter.userid}><{$g_vars.page.addon_order}><{$g_vars.page.addon_limit}>"><img src="images/button-checkbox-0.gif" width=13 height=13 border=0 title="<{$lngstr.label_no}>"></a><{/if}></td>
+<{else}>
+<td align=center><img src="images/button-checkbox-0.gif" width=13 height=13 border=0 title="<{$lngstr.label_no}>"></td>
+<{/if}>
+
+<td align=center><{if $g_vars.page.tables.1.rows.$i_counter.result_timeexceeded}><img src="images/button-checkbox-2.gif" width=13 height=13 border=0 title="<{$lngstr.label_yes}>"><{else}><img src="images/button-checkbox-0.gif" width=13 height=13 border=0 title="<{$lngstr.label_no}>"><{/if}></td><td align=right><{$g_vars.page.tables.1.rows.$i_counter.result_points}></td><td align=right><{$g_vars.page.tables.1.rows.$i_counter.result_pointsmax}></td><td align=right><{getPrintF text="%.2f" var1=$g_vars.page.tables.1.rows.$i_counter.result_score}>%</td><td align=center title="<{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.grade_description}>"><{getInTagValue text=$g_vars.page.tables.1.rows.$i_counter.grade_name}></td>
+<td align=center width=22><a href="reports-manager.php?action=viewq&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>"><img width=20 height=20 border=0 src="images/button-view.gif" title="<{$lngstr.label_action_test_result_view}>"></a></td>
+
+<{if $g_vars.page.show_stats && ($smarty.session.MAIN.access_reportsmanager > 1)}>
+<td align=center width=22><a href="statistics.php?action=resultid&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>"><img width=20 height=20 border=0 src="images/button-stats.gif" title="<{$lngstr.page_testmanager_stats.view_results_stats}>"></a></td>
+<{/if}>
+
+<{if $g_vars.page.tables.1.rows.$i_counter.show_pdf && $g_vars.page.tables.1.rows.$i_counter.show_html}>
+<td align=center width=22><a href="getfile.php?action=thtml&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>" target="_blank"><img width=20 height=20 border=0 src="images/button-report-html.gif" title="<{$lngstr.page_reportsmanager.view_html}>"></a><a href="getfile.php?action=tpdf&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>&file=report.pdf" target="_blank"><img width=20 height=20 border=0 src="images/button-pdf.gif" title="<{$lngstr.page_reportsmanager.view_pdf}>"></a></td>
+<{elseif $g_vars.page.tables.1.rows.$i_counter.show_pdf}>
+<td align=center width=22><a href="getfile.php?action=tpdf&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>&file=report.pdf" target="_blank"><img width=20 height=20 border=0 src="images/button-pdf.gif" title="<{$lngstr.page_reportsmanager.view_pdf}>"></a></td>
+<{elseif $g_vars.page.tables.1.rows.$i_counter.show_html}>
+<td align=center width=22><a href="getfile.php?action=thtml&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>" target="_blank"><img width=20 height=20 border=0 src="images/button-report-html.gif" title="<{$lngstr.page_reportsmanager.view_html}>"></a></td>
+<{else}>
+<td align=center width=22><img width=20 height=20 border=0 src="images/1x1.gif" title="<{$lngstr.page_reportsmanager.view_none}>">
+<{/if}>
+
+<{if $smarty.session.MAIN.access_reportsmanager > 1}>
+<td align=center width=22><a href="reports-manager.php?action=delete&resultid=<{$g_vars.page.tables.1.rows.$i_counter.resultid}>" onclick="return confirmMessage(this, '<{$lngstr.qst_delete_record}>')"><img width=20 height=20 border=0 src="images/button-cross.gif" title="<{$lngstr.label_action_test_result_delete}>"></a></td>
+<{/if}>
+
+</tr>
+
+<{/foreach}>
+
+
+</table>
+</td></tr></table></form>
+
+<{include file="_footer.tpl.html"}>

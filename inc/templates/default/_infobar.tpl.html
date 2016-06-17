@@ -1,0 +1,6 @@
+<{if $g_vars.page.infobar}>
+<div id="infobar" style="display: <{if $smarty.cookies.igt_showinfobar && $smarty.cookies.igt_showinfobar=='Y'}>block<{else}>none<{/if}>;"><table cellpadding=0 cellspacing=0 border=0 width="97%" align=center style="border: 1px solid #8097D1; background-color: #F3F6FF;">
+<tr><td width=32 vAlign=top style="padding: 5px;"><img src="images/dialog-info.gif" width=32 height=32></td><td width="100%" vAlign=middle style="padding: 5px;"><a href="javascript:ShowInfoBar(false);" title="<{$lngstr.tooltip_closebar}>"><img src="images/button-cross-infobar.gif" align=right width=20 height=20 border=0></a>
+<{$g_vars.page.infobar}>
+</td></tr></table></div>
+<{/if}>

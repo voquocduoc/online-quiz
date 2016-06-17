@@ -1,0 +1,13 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<h2><{$g_vars.page.title}></h2>
+
+<{include file="_notifications.tpl.html"}>
+
+<p><form method=post action="register.php?action=step2&userid=<{$g_vars.page.userid}>">
+Payments are currently accepted via PayPal. Please press the "Next" button below to make a payment and activate your account.
+<p><input class=btn type=submit name=bsubmit value=" <{$lngstr.button_next}> ">
+</form>
+
+<{include file="_footer.tpl.html"}>

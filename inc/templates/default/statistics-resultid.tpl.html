@@ -1,0 +1,128 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{include file="_menu-2.tpl.html"}>
+
+<{include file="_notifications.tpl.html"}>
+
+<h2><{getPrintF text=$g_vars.page.header var1=$g_vars.page.test_name}></h2>
+
+<p><table cellpadding=0 cellspacing=0 border=0 width="100%">
+<tr>
+<td width="95%"></td>
+<td width="5%"><nobr><a href="statistics.php?action=resultid&resultid=<{$g_vars.page.resultid}>&print=1" target=_blank><{$lngstr.label.print_version}></nobr></td>
+</tr>
+</table></p>
+
+<p><span style="font-size: 11pt; font-weight: bold; color: #0A5EB2;"><{$lngstr.page_testmanager_stats.this_participant}></span></p>
+
+<p><{getPrintF text=$lngstr.label_result_username var1=$g_vars.page.user_name}>
+<br /><{getPrintF text=$lngstr.label_result_testname var1=$g_vars.page.test_name}>
+<br /><{getPrintF text=$lngstr.label_result_testdate var1=$g_vars.page.result_date}>
+<br /><{getPrintF text=$lngstr.label_result_timespent var1=$g_vars.page.time_spent}>
+<br /><{getPrintF text=$lngstr.label_result_got_points var1=$g_vars.page.got_points var2=$g_vars.page.points_max var3=$g_vars.page.score}>
+<br /><{getPrintF text=$lngstr.label_result_got_grade var1=$g_vars.page.grade.name}></p>
+
+<p><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowone>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_subject_name_hint}>"><{$lngstr.page_testmanager_stats.hdr_subject_name}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_subject_questions_hint}>"><{$lngstr.page_testmanager_stats.hdr_subject_questions}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_subject_questions_got_hint}>"><{$lngstr.page_testmanager_stats.hdr_subject_questions_got}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_subject_correct_hint}>"><{$lngstr.page_testmanager_stats.hdr_subject_correct}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_percents_hint}>"><{$lngstr.page_testmanager_stats.hdr_percents}></td>
+</tr>
+<{foreach from=$g_vars.page.subjects key=i_subjectid item=i_subject}>
+<tr class=rowone>
+<td width=60%><{$i_subject.name}></td>
+<td width=10% align=right><{$i_subject.question_count}></td>
+<td width=10% align=right><{$i_subject.question_got}></td>
+<td width=10% align=right><{$i_subject.question_correct}></td>
+<td width=10% align=right><{getPrintF text="%.2f" var1=$i_subject.question_correct_percents}>%</td>
+</tr>
+<{/foreach}>
+
+</table></p>
+
+<p><hr style="height: 1px; color: #979ca8;"></p>
+
+<p><span style="font-size: 11pt; font-weight: bold; color: #0A5EB2"><{$lngstr.page_testmanager_stats.all_participants}></span></p>
+
+<p><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr>
+<td width=80% class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_test_data_hint}>" colspan=2><{$lngstr.page_testmanager_stats.hdr_test_data}></td>
+<td width=10% class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_points_hint}>"><{$lngstr.page_testmanager_stats.hdr_points}></td>
+<td width=10% class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_percents_hint}>"><{$lngstr.page_testmanager_stats.hdr_percents}></td>
+</tr>
+
+<tr class=rowone>
+<td width=20%><{$lngstr.page_testmanager_stats.test_average_score}></td>
+<{if $g_vars.page.test.points_total_max > 0 && $g_vars.page.test.participant_count > 0}>
+<td width=60%><{getGauge color=yellow percentage=$g_vars.page.test.points_average_percents}></td>
+<td width=10% align=right><{getPrintF text="%.0f" var1=$g_vars.page.test.points_average}></td>
+<td width=10% align=right><{getPrintF text="%.2f" var1=$g_vars.page.test.points_average_percents}>%</td>
+<{else}>
+<td colspan=3 align=center class=gray><{$lngstr.label_notapplicable}></td>
+<{/if}>
+</tr>
+
+<tr class=rowone>
+<td><{$lngstr.page_testmanager_stats.test_high_score}></td>
+<{if $g_vars.page.test.points_max > 0}>
+<td><{getGauge color=green percentage=$g_vars.page.test.points_high_percents}></td>
+<td align=right><{$g_vars.page.test.points_high}></td>
+<td align=right><{getPrintF text="%.2f" var1=$g_vars.page.test.points_high_percents}>%</td>
+<{else}>
+<td colspan=3 align=center class=gray><{$lngstr.label_notapplicable}></td>
+<{/if}>
+</tr>
+
+<tr class=rowone>
+<td><{$lngstr.page_testmanager_stats.test_low_score}></td>
+<{if $g_vars.page.test.points_max > 0}>
+<td><{getGauge color=red percentage=$g_vars.page.test.points_low_percents}></td>
+<td align=right><{$g_vars.page.test.points_low}></td>
+<td align=right><{getPrintF text="%.2f" var1=$g_vars.page.test.points_low_percents}>%</td>
+<{else}>
+<td colspan=3 align=center class=gray><{$lngstr.label_notapplicable}></td>
+<{/if}>
+</tr>
+
+<tr class=rowone>
+<td><{$lngstr.page_testmanager_stats.test_std_deviation}></td>
+<td colspan=3><{getPrintF text="%.2f" var1=$g_vars.page.test.std_deviation}></td>
+</tr>
+
+<tr class=rowone>
+<td><{$lngstr.page_testmanager_stats.test_variance}></td>
+<td colspan=3><{getPrintF text="%.2f" var1=$g_vars.page.test.variance}></td>
+</tr>
+</table></p>
+
+<p><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr class=rowone>
+<td colspan=2 class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_grade_data_hint}>"><{$lngstr.page_testmanager_stats.hdr_grade_data}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_grade_responses_hint}>"><{$lngstr.page_testmanager_stats.hdr_grade_responses}></td>
+<td class=rowhdr1 title="<{$lngstr.page_testmanager_stats.hdr_percents_hint}>"><{$lngstr.page_testmanager_stats.hdr_percents}></td>
+</tr>
+<{foreach from=$g_vars.page.grades key=i_gradeid item=i_grade}>
+<tr class=rowone>
+<td width=20%><{$i_grade.name}>:</td>
+<{if $g_vars.page.grades_times_total > 0}>
+<td width=60%><{getGauge percentage=$i_grade.times_percents}></td>
+<td width=10% align=right><{$i_grade.times}></td>
+<td width=10% align=right><{getPrintF text="%.2f" var1=$i_grade.times_percents}>%</td>
+<{else}>
+<td colspan=3 align=center class=gray><{$lngstr.label_notapplicable}></td>
+<{/if}>
+</tr>
+<{/foreach}>
+
+<tr class=rowone>
+<td><{$lngstr.page_testmanager_stats.total_responses}></td>
+<td></td>
+<td align=right><{$g_vars.page.test.participant_count}></td>
+<td align=right></td>
+</tr>
+</table></p>
+
+<{include file="_footer.tpl.html"}>

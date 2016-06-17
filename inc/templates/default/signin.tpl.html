@@ -1,0 +1,29 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<p><table cellpadding=0 cellspacing=5 border=0 width="100%">
+<tr vAlign=top><td width="35%" height="100%" class=signin1>
+<form action="index.php" method=post name=signinform>
+<{$lngstr.page_signin_box_signin_intro}><br>
+<br><{$lngstr.page_signin_box_signin}>
+<br><input name=username class=inp type=text value="<{$g_vars.page.username}>" size=20>
+<br><{$lngstr.page_signin_box_password}>
+<br><input name=password class=inp type=password value="<{$g_vars.page.user_password}>" size=20><input name=gotourl type=hidden value="<{$g_vars.page.gotourl}>">
+<{* <br><{$lngstr.page_signin.test_code}>
+<br><input name=test_code class=inp type=text value="<{$g_vars.page.test_code}>" size=20> *}>
+<br>
+<br><input class=btn type=submit name=bsubmit value=" <{$lngstr.button_signin}> ">
+
+<{if $g_vars.page.cansigninasguest}><br><br><input class=btn type=submit name=bguest value=" <{$lngstr.button_signin_as_guest}> "><{/if}>
+
+</form></td>
+<td height="100%" class=signin2>
+
+<{include file="_notifications.tpl.html"}>
+
+<{$lngstr.page_signin_box_intro}>
+<{if $g_vars.page.can_register}><p><{$lngstr.page_signin_box_register_intro}></p><{/if}>
+<p><{$lngstr.page_signin_box_lostpassword_intro}></p>
+</td></tr></table>
+
+<{include file="_footer.tpl.html"}>

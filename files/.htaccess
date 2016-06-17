@@ -1,0 +1,24 @@
+<Files ~ "\.php$">
+Order allow,deny
+Deny from all
+</Files>
+
+<Files ~ "\.phtml$">
+Order allow,deny
+Deny from all
+</Files>
+
+<Files ~ "\.cgi$">
+Order allow,deny
+Deny from all
+</Files>
+
+<Files ~ "\.pl$">
+Order allow,deny
+Deny from all
+</Files>
+
+<Files ~ "\.asp$">
+Order allow,deny
+Deny from all
+</Files>

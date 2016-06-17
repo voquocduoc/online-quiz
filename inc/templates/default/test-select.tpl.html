@@ -1,0 +1,37 @@
+<{* Smarty *}>
+<{include file="_header.tpl.html"}>
+
+<{* <h2><{$lngstr.page_takeatest.score}></h2>
+
+<p><{getPrintF text=$lngstr.page_takeatest.score_total var1=$g_vars.page.user_points var2=$g_vars.page.user_points_max var3=$g_vars.page.user_score}></p> *}>
+
+<h2><{$g_vars.page.header}></h2>
+
+<{include file="_notifications.tpl.html"}>
+
+<{$g_vars.page.header2}>
+
+<p><table class=rowtable2 cellpadding=5 cellspacing=1 border=0 width="100%">
+<tr>
+
+<{getTableHeaders url=$g_vars.page.url columns=$g_vars.page.tables.1.columns orderno=$g_vars.page.orderno direction=$g_vars.page.direction}>
+
+<{* <td class=rowhdr1 title="<{$lngstr.page_panel_hdr_test_hint}>"><{$lngstr.page_panel_hdr_test}></td><td class=rowhdr1 title="<{$lngstr.page_panel_hdr_teststatus_hint}>"><{$lngstr.page_panel_hdr_teststatus}></td><td class=rowhdr1 title="<{$lngstr.page_panel_hdr_gettest_hint}>"><{$lngstr.page_panel_hdr_gettest}></td> *}>
+
+</tr>
+
+<{foreach from=$g_vars.page.test key=i_testno item=test}>
+<{if $g_vars.page.test.$i_testno.visible}>
+<tr class=<{getRowNo}>>
+<td align=right><{$g_vars.page.test.$i_testno.testid}></td>
+<td width="60%"><b><{if $g_vars.page.test.$i_testno.status}><{if $g_vars.page.test.$i_testno.test_purchased}><a <{if $g_vars.page.test.$i_testno.content_protection}>href="javascript:void(0)" onClick="showDialog('test.php?testid=<{$g_vars.page.test.$i_testno.testid}>', 800, 600)"<{else}>href="test.php?testid=<{$g_vars.page.test.$i_testno.testid}>"<{/if}>><{$g_vars.page.test.$i_testno.name}></a><{else}><a href="buy.php?action=checkout&testid=<{$g_vars.page.test.$i_testno.testid}>"><{$g_vars.page.test.$i_testno.name}></a><{/if}><{else}><{$g_vars.page.test.$i_testno.name}><{/if}></b><br><{$g_vars.page.test.$i_testno.description}></td>
+<td width="20%" align=center><{if $g_vars.page.test.$i_testno.status==IGT_TEST_STATUS_INPROGRESS}><b><{$lngstr.page_panel_status_inprogress}></b><{else}><{$g_vars.page.test.$i_testno.status_label}><{/if}></td>
+<{* <td align=right><{if $g_vars.page.test.$i_testno.is_dynamic}>~<{/if}><{$g_vars.page.test.$i_testno.points_max}></td> *}>
+<td width="20%" align=center><b><{if $g_vars.page.test.$i_testno.status}><{if $g_vars.page.test.$i_testno.test_purchased}><a <{if $g_vars.page.test.$i_testno.content_protection}>href="javascript:void(0)" onClick="showDialog('test.php?testid=<{$g_vars.page.test.$i_testno.testid}>', 800, 600)"<{else}>href="test.php?testid=<{$g_vars.page.test.$i_testno.testid}>"<{/if}>><{$lngstr.page_panel_get_test_link}></a><{else}><a href="buy.php?action=checkout&testid=<{$g_vars.page.test.$i_testno.testid}>"><{$lngstr.page_takeatest.buy_test}> (<{getPrintF text=$lngstr.language.currency var1=$g_vars.page.test.$i_testno.test_price}>)</a><{/if}><{else}><{$lngstr.page_panel_get_test_link}><{/if}></b></td>
+</tr>
+<{/if}>
+<{/foreach}><{if $g_vars.page.test_count==0}><tr class=rowone><td colspan=4><{$lngstr.err_no_tests}></td></tr><{/if}>
+
+</table>
+
+<{include file="_footer.tpl.html"}>
